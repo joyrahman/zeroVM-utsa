@@ -1,0 +1,49 @@
+and the input json is:
+[
+            {
+                "name": "map",
+                "exec": {
+                    "path": "swift://a/terasort/bin/map",
+                    "env": {
+                        "MAP_NAME": "map",
+                        "REDUCE_NAME": "red",
+                        "MAP_CHUNK_SIZE": "100485700"
+                    }
+                },
+                "connect": ["red", "map"],
+                "file_list": [
+                    {
+                        "device": "stdin",
+                        "path": "swift://a/terasort/input/*.txt"
+                    },
+                    {
+                        "device": "stderr",
+                        "path": "swift://a/terasort/log/*.log",
+                        "content_type": "text/plain"
+                    }
+                ]
+            },
+            {
+                "name": "red",
+                "exec": {
+                    "path": "swift://a/terasort/bin/reduce",
+                    "env": {
+                        "MAP_NAME": "map",
+                        "REDUCE_NAME": "red"
+                    }
+                },
+                "file_list": [
+                    {
+                        "device": "stdout",
+                        "path": "swift://a/terasort/output/*.txt",
+                        "content_type": "text/plain"
+                    },
+                    {
+                        "device": "stderr",
+                        "path": "swift://a/terasort/log/*.log",
+                        "content_type": "text/plain"
+                    }
+                ],
+                "count": 4
+            }
+        ]
